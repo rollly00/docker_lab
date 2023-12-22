@@ -7,10 +7,10 @@ import os
 
 app = Flask(__name__)
 # CHANGE THE CONN FIELD
-# cache = redis.StrictRedis(host='redis', port=6379)
+cache = redis.Redis(host='redis', port=6379)
 
-redis_url = os.environ.get('REDIS_URL', default='redis://redis:6379/0')
-cache = redis.from_url(redis_url)
+#r#edis_url = os.environ.get('REDIS_URL', default='redis://redis:6379/0')
+#cache = redis.from_url(redis_url)
 
 # Configure Logging
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
@@ -20,8 +20,8 @@ def PgFetch(query, method):
 
     # Connect to an existing database
     # CHANGE THE CONN FIELD
-    # conn = psycopg2.connect("host='postgres' dbname='slurm_app' user='postgres' password='s1urmpa55'")
-    conn = psycopg2.connect(os.environ.get('POSTGRES_URL', default='postgresql://postgres:s1urmpa55@postgres/slurm_app'))
+    conn = psycopg2.connect("host='postgres' dbname='app' user='postgres' password='1234'")
+    #conn = psycopg2.connect(os.environ.get('POSTGRES_URL', default='postgresql://postgres:1234@postgres/app'))
 
     # Open a cursor to perform database operations
     cur = conn.cursor()

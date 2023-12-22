@@ -21,7 +21,7 @@ do
 done
 
 # Проверка наличия именованного тома
-if [ -z "$(docker volume ls | grep slurm_data)" ]; then
+if [ -z "$(docker volume ls | grep mine)" ]; then
     echo "${RED}Том для данных не найден${NC}"
     exit 1
 else

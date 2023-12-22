@@ -1,0 +1,30 @@
+version: "3.3"
+services:
+  web: 
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - /root/docker_lab/1_base/volumes/postgresql_python/app/:/flash/app
+    depends_on:
+      - redis
+      - postgres
+    links:
+      - redis
+      - postgres
+  redis:
+    image: redis:6-alpine
+    expose:
+      - "6379"
+  postgres:
+    image: postgres:13-alpine
+    volumes:
+      - /root/docker_lab/1_base/volumes/postgresql_python/postgres/:/docker-entrypoint-initdb.d/
+      - mine:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: app
+    expose:
+      - "5432"
+volumes:
+  mine:
